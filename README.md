@@ -1,12 +1,8 @@
-# CTRE Swerve Example
+The robot code for Team 1572 The Hammer Heads during the 2024 FIRST Robotics Competition, CRESCENDO Presented by HAAS.
 
-Features:
-- Improved Limelight support
-- Improved PathPlanner autonomous setup
-- Added SysID options for running swerve drivetrain characterization
-- Different xbox joystick controller layout to try for driver comfort
-- Easily scale down the max speed to help newer drivers learn
-- "Turtle Mode" (left bumper) temporarily slows the drivetrain down for fine adjustments
+Based on code from CTRE Swerve Example by Jason Daming
+
+# CTRE Swerve Example
 
 This is an expanded version of the CTRE [SwerveWithPathPlanner](https://github.com/CrossTheRoadElec/Phoenix6-Examples/tree/main/java/SwerveWithPathPlanner) example using the CTRE Swerve Builder.  To use it copy the generated/TunerConstants.java file from the generated project and replace the generated/TunerConstants.java file in this project.  You will also need to set your team number.
 

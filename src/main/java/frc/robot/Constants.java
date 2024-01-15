@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
+
+import edu.wpi.first.math.geometry.Rotation2d;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -13,7 +17,15 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  public static class OperatorConstants {
-    public static final int kDriverControllerPort = 0;
-  }
+    public static final int intakeMotorID = 18;    
+
+    public static final int ArmLED = 20;
+
+    public static final class Intake
+    {
+        public static final double currentThreshold = 30.0;
+        public static final int msToHold = 2500;
+        public static final double holdSpeed = 0.2;
+    }
+
 }

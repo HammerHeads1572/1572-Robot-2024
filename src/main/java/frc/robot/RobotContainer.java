@@ -96,8 +96,8 @@ public class RobotContainer {
 
     //drv.x().and(drv.pov(0)).whileTrue(drivetrain.runDriveQuasiTest(Direction.kForward));
     //drv.x().and(drv.pov(180)).whileTrue(drivetrain.runDriveQuasiTest(Direction.kReverse));
-    drv.x().onTrue(new InstantCommand(() -> m_Intake.setSpeed(.6)));
-    drv.x().onFalse(new InstantCommand(() -> m_Intake.setSpeed(.0)));
+    op.x().onTrue(new InstantCommand(() -> m_Intake.setSpeed(.6)));
+    op.x().onFalse(new InstantCommand(() -> m_Intake.setSpeed(.0)));
 
     drv.y().and(drv.pov(0)).whileTrue(drivetrain.runDriveDynamTest(Direction.kForward));
     drv.y().and(drv.pov(180)).whileTrue(drivetrain.runDriveDynamTest(Direction.kReverse));

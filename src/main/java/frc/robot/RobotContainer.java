@@ -12,6 +12,7 @@ import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -28,6 +29,7 @@ import frc.robot.Vision.Limelight;
 import frc.robot.generated.TunerConstants;
 
 import frc.robot.subsystems.IntakeMotor;
+import frc.robot.subsystems.Wrist;
 
 public class RobotContainer {
   private SendableChooser<Command> autoChooser;
@@ -44,6 +46,8 @@ public class RobotContainer {
   CommandXboxController op = new CommandXboxController(1); // operator xbox controller
   CommandSwerveDrivetrain drivetrain = TunerConstants.DriveTrain; // drivetrain
   public IntakeMotor m_Intake = new IntakeMotor(Constants.intakeMotorID,Constants.ArmLED);
+  public Wrist m_Wrist = new Wrist(Constants.wristPID, 1, Constants.wristMotorID);
+
 
   
   // Field-centric driving in Open Loop, can change to closed loop after characterization 
@@ -94,10 +98,20 @@ public class RobotContainer {
     Trigger speedPick = new Trigger(() -> lastSpeed != speedChooser.getSelected());
     speedPick.onTrue(runOnce(() -> newSpeed()));
 
-    //drv.x().and(drv.pov(0)).whileTrue(drivetrain.runDriveQuasiTest(Direction.kForward));
-    //drv.x().and(drv.pov(180)).whileTrue(drivetrain.runDriveQuasiTest(Direction.kReverse));
-    drv.x().onTrue(new InstantCommand(() -> m_Intake.setSpeed(.6)));
-    drv.x().onFalse(new InstantCommand(() -> m_Intake.setSpeed(.0)));
+    op.x().onFalse(new InstantCommand(() -> m_Intake.setSpeed(.0)));
+    op.b().onFalse(new InstantCommand(() -> m_Intake.setSpeed(.0)));
+
+    op.x().onTrue(new InstantCommand(() -> m_Intake.setSpeed(.3)));
+
+    op.b().onTrue(new InstantCommand(() -> m_Intake.setSpeed(-.3)));
+    
+    op.y().onTrue(new InstantCommand(() -> m_Wrist.setWristAngle(45)));
+
+    op.a().onTrue(new InstantCommand(() -> m_Wrist.setWristAngle(0)));
+
+    //Drivetrain
+    drv.x().and(drv.pov(0)).whileTrue(drivetrain.runDriveQuasiTest(Direction.kForward));
+    drv.x().and(drv.pov(180)).whileTrue(drivetrain.runDriveQuasiTest(Direction.kReverse));
 
     drv.y().and(drv.pov(0)).whileTrue(drivetrain.runDriveDynamTest(Direction.kForward));
     drv.y().and(drv.pov(180)).whileTrue(drivetrain.runDriveDynamTest(Direction.kReverse));
@@ -117,7 +131,10 @@ public class RobotContainer {
     DriverStation.silenceJoystickConnectionWarning(true);
 
     // Build an auto chooser. This will use Commands.none() as the default option.
-    autoChooser = AutoBuilder.buildAutoChooser();
+    autoChooser = AutoBuilder.buildAutoChooser("Loopy Auto");
+    SmartDashboard.putData("Auto Chooser", autoChooser);
+
+  
 
     controlChooser.setDefaultOption("2 Joysticks", "2 Joysticks");
     controlChooser.addOption("1 Joystick Rotation Triggers", "1 Joystick Rotation Triggers");
@@ -138,8 +155,6 @@ public class RobotContainer {
     speedChooser.addOption("50%", 0.5);
     speedChooser.addOption("35%", 0.35);
     SmartDashboard.putData("Speed Limit", speedChooser);
-
-    SmartDashboard.putData("Auto Chooser", autoChooser);
 
     configureBindings();
   }
@@ -191,4 +206,5 @@ public class RobotContainer {
     lastSpeed = speedChooser.getSelected();
     MaxSpeed = TunerConstants.kSpeedAt12VoltsMps * lastSpeed;
   }
+ 
 }

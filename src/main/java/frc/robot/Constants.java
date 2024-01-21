@@ -4,9 +4,6 @@
 
 package frc.robot;
 
-import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
-
-import edu.wpi.first.math.geometry.Rotation2d;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -19,7 +16,11 @@ import edu.wpi.first.math.geometry.Rotation2d;
 public final class Constants {
     public static final int intakeMotorID = 18;    
 
+    public static final int wristMotorID = 16;
     public static final int ArmLED = 20;
+
+    public static final double [] wristPID = {0.06, 0, 8.};
+
 
     public static final class Intake
     {

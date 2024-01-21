@@ -1,18 +1,22 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+//import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix.led.*;
 import com.ctre.phoenix.led.CANdle.LEDStripType;
+
 
 import java.time.Instant;
 import frc.robot.Constants;
 
 public class IntakeMotor extends SubsystemBase{
     
-    private WPI_TalonFX m_Motor;
+    //private WPI_TalonFX m_Motor;
+    private TalonFX m_Motor;
     private double m_Speed;
     private boolean m_Peaking;
     private Instant m_TimeToHold;
@@ -22,8 +26,11 @@ public class IntakeMotor extends SubsystemBase{
     public IntakeMotor(int motorID, int ArmLED)
     {
         // Initialize intake motor
-        m_Motor = new WPI_TalonFX(motorID);
-        m_Motor.configFactoryDefault();
+        //m_Motor = new WPI_TalonFX(motorID);
+        m_Motor = new TalonFX(motorID);
+        //m_Motor.configFactoryDefault();
+        m_Motor.getConfigurator().apply(new TalonFXConfiguration());
+
         m_Motor.setInverted(true);
         
 
@@ -68,8 +75,11 @@ public class IntakeMotor extends SubsystemBase{
         }
 
 
-        SmartDashboard.putNumber("Intake Current", m_Motor.getOutputCurrent());
-        double current = m_Motor.getOutputCurrent();
+       // SmartDashboard.putNumber("Intake Current", m_Motor.getOutputCurrent());
+
+        //double current = m_Motor.getOutputCurrent();
+        double current = m_Motor.get();
+
         if (m_Speed < 0)
         {
             m_IsHolding = false;

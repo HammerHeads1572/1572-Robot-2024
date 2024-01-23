@@ -12,6 +12,7 @@ import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -29,6 +30,8 @@ import frc.robot.generated.TunerConstants;
 
 import frc.robot.subsystems.IntakeMotor;
 import frc.robot.subsystems.Wrist;
+
+
 
 public class RobotContainer {
   private SendableChooser<Command> autoChooser;
@@ -48,7 +51,8 @@ public class RobotContainer {
   public Wrist m_Wrist = new Wrist(Constants.wristPID, 1, Constants.wristMotorID);
 
 
-  
+
+
   // Field-centric driving in Open Loop, can change to closed loop after characterization 
   SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric().withDriveRequestType(DriveRequestType.OpenLoopVoltage).withDeadband(MaxSpeed * 0.1).withRotationalDeadband(AngularRate * 0.1);
   // Field-centric driving in Closed Loop.  Comment above and uncomment below.
@@ -126,14 +130,17 @@ public class RobotContainer {
   }
 
   public RobotContainer() {
+
+    NamedCommands.registerCommand("run Intake", new InstantCommand(() -> m_Intake.setSpeed(0.3)));
+    NamedCommands.registerCommand("Intake Off", new InstantCommand(() -> m_Intake.setSpeed(0)));
+    NamedCommands.registerCommand("Wrist 45", new InstantCommand(() -> m_Wrist.setWristAngle(45)));
+
     // Detect if controllers are missing / Stop multiple warnings
     DriverStation.silenceJoystickConnectionWarning(true);
 
     // Build an auto chooser. This will use Commands.none() as the default option.
-    autoChooser = AutoBuilder.buildAutoChooser("Loopy Auto");
-    SmartDashboard.putData("Auto Chooser", autoChooser);
-
-  
+    autoChooser = AutoBuilder.buildAutoChooser();
+ 
 
     controlChooser.setDefaultOption("2 Joysticks", "2 Joysticks");
     controlChooser.addOption("1 Joystick Rotation Triggers", "1 Joystick Rotation Triggers");
@@ -154,7 +161,9 @@ public class RobotContainer {
     speedChooser.addOption("50%", 0.5);
     speedChooser.addOption("35%", 0.35);
     SmartDashboard.putData("Speed Limit", speedChooser);
-
+    
+    SmartDashboard.putData("Auto Chooser", autoChooser);
+    
     configureBindings();
   }
 

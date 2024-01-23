@@ -1,12 +1,11 @@
 package frc.robot.subsystems;
 
-import frc.robot.Constants;
+//import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-import com.revrobotics.SparkMaxAlternateEncoder;
 import com.revrobotics.CANSparkMax;
 
 public class Wrist extends SubsystemBase

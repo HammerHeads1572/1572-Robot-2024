@@ -18,21 +18,33 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "Wrist 45"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "run Intake"
+          }
+        },
+        {
           "type": "wait",
           "data": {
             "waitTime": 1.0
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Run to High Shoot"
+            "name": "Intake Off"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Example Path"
+            "pathName": "Run to High Shoot"
           }
         }
       ]

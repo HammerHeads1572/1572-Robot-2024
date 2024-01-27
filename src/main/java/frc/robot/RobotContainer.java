@@ -134,6 +134,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("run Intake", new InstantCommand(() -> m_Intake.setSpeed(0.3)));
     NamedCommands.registerCommand("Intake Off", new InstantCommand(() -> m_Intake.setSpeed(0)));
     NamedCommands.registerCommand("Wrist 45", new InstantCommand(() -> m_Wrist.setWristAngle(45)));
+    NamedCommands.registerCommand("Wrist 0", new InstantCommand(() -> m_Wrist.setWristAngle(0)));
+    NamedCommands.registerCommand("Wrist 110", new InstantCommand(() -> m_Wrist.setWristAngle(110)));
 
     // Detect if controllers are missing / Stop multiple warnings
     DriverStation.silenceJoystickConnectionWarning(true);

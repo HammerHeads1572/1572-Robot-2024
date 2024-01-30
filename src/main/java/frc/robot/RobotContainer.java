@@ -162,6 +162,7 @@ public class RobotContainer {
     speedChooser.addOption("55%", 0.55);
     speedChooser.addOption("50%", 0.5);
     speedChooser.addOption("35%", 0.35);
+    speedChooser.addOption("10%", 0.1);
     SmartDashboard.putData("Speed Limit", speedChooser);
     
     SmartDashboard.putData("Auto Chooser", autoChooser);

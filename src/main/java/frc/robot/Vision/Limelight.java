@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.CommandSwerveDrivetrain;
 import frc.robot.Util.RectanglePoseArea;
-import frc.robot.Vision.LimelightHelpers;
+//import frc.robot.Vision.LimelightHelpers;
 
 public class Limelight extends SubsystemBase {
   CommandSwerveDrivetrain drivetrain;
@@ -32,10 +32,12 @@ public class Limelight extends SubsystemBase {
   private static final RectanglePoseArea field =
         new RectanglePoseArea(new Translation2d(0.0, 0.0), new Translation2d(16.54, 8.02));
 
-  public double centerVariationAllowed = 5;
+  public double centerVariationAllowed = 3;
   public double LLRotationDistance;
-  public Boolean LLRotating;
+  public Boolean LLRotating = false;
   public static double rotationMovement;
+  public boolean searching = false;
+
 
   /** Creates a new Limelight. */
   public Limelight(CommandSwerveDrivetrain drivetrain) {
@@ -92,10 +94,34 @@ public class Limelight extends SubsystemBase {
     SmartDashboard.putNumber("LimelightX", x);
     SmartDashboard.putNumber("LimelightY", y);
     SmartDashboard.putNumber("LimelightArea", area);
-
     CommandXboxController drv = new CommandXboxController(0); // driver xbox controller
+    SmartDashboard.putBoolean("searching", searching);
+    
+    if (searching == true) {
+      
+      double searchLLX = tx.getDouble(centerVariationAllowed);
 
-    if (LLRotating = true) {
+      if (searchLLX > centerVariationAllowed) {
+      
+        LLRotating = true;
+        LLRotationDistance = 0.3;
+      
+      } 
+      else if (searchLLX < -centerVariationAllowed) {
+      
+        LLRotating = true;
+        LLRotationDistance = -0.3;
+      
+      } else {
+        
+        searching = false;
+        LLRotating = false;
+
+      }
+
+    }
+
+    if (LLRotating == true && searching == true) {
       
       rotationMovement = LLRotationDistance;
     
@@ -121,25 +147,6 @@ public class Limelight extends SubsystemBase {
   }
 
   public void Search() {
-    
-    double searchLLX = tx.getDouble(0.0);
-    
-    if (searchLLX > centerVariationAllowed) {
-     
-      LLRotating = true;
-      LLRotationDistance = -2;
-    
-    } 
-    else if (searchLLX < centerVariationAllowed) {
-    
-      LLRotating = true;
-      LLRotationDistance = 2;
-    
-    } 
-    else {
-    
-      LLRotating = false;
-
-    }
+    searching = true;
   }
 }

@@ -27,7 +27,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Util.SysIdRoutine.Direction;
 import frc.robot.Vision.Limelight;
 import frc.robot.generated.TunerConstants;
-
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.IntakeMotor;
 import frc.robot.subsystems.Wrist;
 
@@ -49,7 +49,7 @@ public class RobotContainer {
   CommandSwerveDrivetrain drivetrain = TunerConstants.DriveTrain; // drivetrain
   public IntakeMotor m_Intake = new IntakeMotor(Constants.intakeMotorID,Constants.ArmLED);
   public Wrist m_Wrist = new Wrist(Constants.wristPID, 1, Constants.wristMotorID);
-
+  public Arm m_Arm = new Arm(Constants.armPID, Constants.armLeaderID, Constants.armFollowerID);
 
 
 
@@ -112,6 +112,15 @@ public class RobotContainer {
 
     op.a().onTrue(new InstantCommand(() -> m_Wrist.setWristAngle(0)));
 
+    op.leftTrigger().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(45)));
+
+    op.rightTrigger().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(0)));
+
+    op.leftBumper().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(Arm.arm_angle + 1)));
+
+    op.rightBumper().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(Arm.arm_angle - 1)));
+
+    
     //Drivetrain
     drv.x().and(drv.pov(0)).whileTrue(drivetrain.runDriveQuasiTest(Direction.kForward));
     drv.x().and(drv.pov(180)).whileTrue(drivetrain.runDriveQuasiTest(Direction.kReverse));

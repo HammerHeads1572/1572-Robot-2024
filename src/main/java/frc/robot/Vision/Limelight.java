@@ -8,15 +8,17 @@ import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.CommandSwerveDrivetrain;
 import frc.robot.Util.RectanglePoseArea;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
+//import frc.robot.Vision.LimelightHelpers;
 
 public class Limelight extends SubsystemBase {
   CommandSwerveDrivetrain drivetrain;
@@ -30,12 +32,20 @@ public class Limelight extends SubsystemBase {
   private static final RectanglePoseArea field =
         new RectanglePoseArea(new Translation2d(0.0, 0.0), new Translation2d(16.54, 8.02));
 
+  public double centerVariationAllowed = 2.75;
+  public double LLRotationDistance;
+  public Boolean LLRotating = false;
+  public static double rotationMovement;
+  public boolean searching = false;
+
+
   /** Creates a new Limelight. */
   public Limelight(CommandSwerveDrivetrain drivetrain) {
     this.drivetrain = drivetrain;
     SmartDashboard.putNumber("Field Error", fieldError);
     SmartDashboard.putNumber("Limelight Error", distanceError);
   }
+
   NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   NetworkTableEntry tx = table.getEntry("tx");
   NetworkTableEntry ty = table.getEntry("ty");
@@ -75,16 +85,66 @@ public class Limelight extends SubsystemBase {
       }
     }
 
-  //read values periodically
-  double x = tx.getDouble(0.0);
-  double y = ty.getDouble(0.0);
-  double area = ta.getDouble(0.0);
+    //read values
+    double x = tx.getDouble(0.0);
+    double y = ty.getDouble(0.0);
+    double area = ta.getDouble(0.0);
 
-  //post to smart dashboard periodically
-  SmartDashboard.putNumber("LimelightX", x);
-  SmartDashboard.putNumber("LimelightY", y);
-  SmartDashboard.putNumber("LimelightArea", area);
+    //post to smart dashboard
+    SmartDashboard.putNumber("LimelightX", x);
+    SmartDashboard.putNumber("LimelightY", y);
+    SmartDashboard.putNumber("LimelightArea", area);
+    CommandXboxController drv = new CommandXboxController(0); // driver xbox controller
+    SmartDashboard.putBoolean("searching", searching);
     
+    if (searching == true) {
+      
+      double searchLLX = tx.getDouble(centerVariationAllowed);
+
+      if (searchLLX > centerVariationAllowed) {
+        
+        LLRotating = true;
+
+        if (searchLLX >= centerVariationAllowed + 2) {
+          LLRotationDistance = 0.30;
+        }
+        else {
+          LLRotationDistance = 0.15;
+        }
+        
+      
+      } 
+      else if (searchLLX < -centerVariationAllowed) {
+      
+        LLRotating = true;
+
+        if (searchLLX <= -centerVariationAllowed - 2) {
+          LLRotationDistance = -0.3;
+        }
+        else {
+          LLRotationDistance = -0.15;
+        }
+      
+      } else {
+        
+        searching = false;
+        LLRotating = false;
+
+      }
+
+    }
+
+    if (LLRotating == true && searching == true) {
+      
+      rotationMovement = LLRotationDistance;
+    
+    }
+    else {
+
+      rotationMovement = -drv.getRightX();
+    
+    }
+
   }
 
   public void setAlliance(Alliance alliance) {
@@ -97,5 +157,9 @@ public class Limelight extends SubsystemBase {
 
   public void trustLL(boolean trust) {
     this.trust = trust;
+  }
+
+  public void Search() {
+    searching = true;
   }
 }

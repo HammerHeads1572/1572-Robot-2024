@@ -138,7 +138,7 @@ public class RobotContainer {
 
     // Drivetrain needs to be placed against a sturdy wall and test stopped immediately upon wheel slip
     drv.back().and(drv.pov(0)).whileTrue(drivetrain.runDriveSlipTest());
-    
+
     drv.rightBumper().whileTrue(new RunCommand(() -> vision.Search()));
 
   }
@@ -195,7 +195,7 @@ public class RobotContainer {
       case "2 Joysticks":
         controlStyle = () -> drive.withVelocityX(-drv.getLeftY() * MaxSpeed) // Drive forward -Y
             .withVelocityY(-drv.getLeftX() * MaxSpeed) // Drive left with negative X (left)
-            .withRotationalRate(-drv.getRightX() * AngularRate); // Drive counterclockwise with negative X (left)
+            .withRotationalRate(Limelight.rotationMovement  * AngularRate); // Drive counterclockwise with negative X (left)
         break;
       case "1 Joystick Rotation Triggers":
         controlStyle = () -> drive.withVelocityX(-drv.getLeftY() * MaxSpeed) // Drive forward -Y

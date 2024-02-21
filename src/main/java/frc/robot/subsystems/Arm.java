@@ -83,7 +83,7 @@ public class Arm extends SubsystemBase {
 
         m_TargetAngle = 0;
         //Not sure why this is here: m_ArmDriveMotor.set(m_TargetAngle);
-        m_FollowMotor.setControl(new Follower(m_ArmDriveMotor.getDeviceID(), false));
+        m_FollowMotor.setControl(new Follower(m_ArmDriveMotor.getDeviceID(), true));
 
 
         

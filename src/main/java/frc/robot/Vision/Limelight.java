@@ -96,6 +96,7 @@ public class Limelight extends SubsystemBase {
     SmartDashboard.putNumber("LimelightArea", area);
     CommandXboxController drv = new CommandXboxController(0); // driver xbox controller
     SmartDashboard.putBoolean("searching", searching);
+    SmartDashboard.putBoolean("rotating", LLRotating);
     
     if (searching == true) {
       
@@ -104,12 +105,12 @@ public class Limelight extends SubsystemBase {
       if (searchLLX > centerVariationAllowed) {
         
         LLRotating = true;
-
+ 
         if (searchLLX >= centerVariationAllowed + 2) {
-          LLRotationDistance = 0.30;
+          LLRotationDistance = 0.20;
         }
         else {
-          LLRotationDistance = 0.15;
+          LLRotationDistance = 0.1;
         }
         
       
@@ -119,10 +120,10 @@ public class Limelight extends SubsystemBase {
         LLRotating = true;
 
         if (searchLLX <= -centerVariationAllowed - 2) {
-          LLRotationDistance = -0.3;
+          LLRotationDistance = -0.2;
         }
         else {
-          LLRotationDistance = -0.15;
+          LLRotationDistance = -0.1;
         }
       
       } else {

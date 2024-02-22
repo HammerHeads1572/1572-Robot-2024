@@ -1,41 +1,41 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 //import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.configs.*;
+import com.ctre.phoenix.led.*;
+import com.ctre.phoenix.led.CANdle.LEDStripType;
 
 
 import java.time.Instant;
 import frc.robot.Constants;
 
-public class IntakeMotor extends SubsystemBase{
+public class Shooter extends SubsystemBase{
     
-    private TalonFX m_intakeMotor;
-    private TalonFX m_transferMotor;
-    private TalonFX m_storageMotor;
+    //private WPI_TalonFX m_Motor;
+    private TalonFX m_ShooterLeader;
+    private TalonFX m_ShooterFollower;
     private double m_Speed;
     private boolean m_Peaking;
     private Instant m_TimeToHold;
     private boolean m_IsHolding;
 
-
-    public IntakeMotor(int IntakeMotorID, int TransferMotorID, int StorageMotorID)
+    public Shooter(int ShooterLeaderID, int ShooterFollowerID)
     {
         // Initialize intake motor
-        m_intakeMotor = new TalonFX(IntakeMotorID);
-        m_transferMotor = new TalonFX(TransferMotorID);
-        m_storageMotor = new TalonFX(StorageMotorID);
+        m_ShooterLeader = new TalonFX(ShooterLeaderID);
+        m_ShooterFollower = new TalonFX(ShooterFollowerID);
 
-        m_intakeMotor.getConfigurator().apply(new TalonFXConfiguration());
-        m_transferMotor.getConfigurator().apply(new TalonFXConfiguration());
-        m_storageMotor.getConfigurator().apply(new TalonFXConfiguration());
 
-        //m_intakeMotor.setInverted(true);
-    
+        m_ShooterLeader.getConfigurator().apply(new TalonFXConfiguration());
+        m_ShooterFollower.getConfigurator().apply(new TalonFXConfiguration());
+
+       // m_Motor.setInverted(true);
+         
+
         m_IsHolding = false;
 
         m_Speed = 0;
@@ -48,13 +48,13 @@ public class IntakeMotor extends SubsystemBase{
     @Override
     public void periodic()
     {
-        m_intakeMotor.set(m_Speed);
+        //m_Motor.set(m_Speed);
 
 
-       // SmartDashboard.putNumber("Intake Current", m_intakeMotor.getOutputCurrent());
+       // SmartDashboard.putNumber("Intake Current", m_Motor.getOutputCurrent());
 
-        //double current = m_intakeMotor.getOutputCurrent();
-        double current = m_intakeMotor.get();
+        //double current = m_Motor.getOutputCurrent();
+        /*double current = m_Motor.get();
 
         if (m_Speed < 0)
         {
@@ -77,6 +77,7 @@ public class IntakeMotor extends SubsystemBase{
                 m_IsHolding = true;
             }
         }
+        */
 
     }
 

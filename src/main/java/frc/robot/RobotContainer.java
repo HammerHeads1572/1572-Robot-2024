@@ -48,7 +48,7 @@ public class RobotContainer {
   CommandXboxController drv = new CommandXboxController(0); // driver xbox controller
   CommandXboxController op = new CommandXboxController(1); // operator xbox controller
   CommandSwerveDrivetrain drivetrain = TunerConstants.DriveTrain; // drivetrain
-  public IntakeMotor m_Intake = new IntakeMotor(Constants.intakeMotorID,Constants.ArmLED);
+  //public IntakeMotor m_Intake = new IntakeMotor(Constants.intakeMotorID,Constants.ArmLED);
   public Wrist m_Wrist = new Wrist(Constants.wristPID, 1, Constants.wristMotorID);
   public Arm m_Arm = new Arm(Constants.armPID, Constants.armLeaderID, Constants.armFollowerID);
 

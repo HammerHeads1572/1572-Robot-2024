@@ -6,9 +6,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.configs.*;
-import com.ctre.phoenix.led.*;
-import com.ctre.phoenix.led.CANdle.LEDStripType;
-
+import com.ctre.phoenix6.controls.Follower;
 
 import java.time.Instant;
 import frc.robot.Constants;
@@ -22,6 +20,8 @@ public class Shooter extends SubsystemBase{
     private boolean m_Peaking;
     private Instant m_TimeToHold;
     private boolean m_IsHolding;
+    private double m_StorageMotorSpeed;
+
 
     public Shooter(int ShooterLeaderID, int ShooterFollowerID)
     {
@@ -33,7 +33,7 @@ public class Shooter extends SubsystemBase{
         m_ShooterLeader.getConfigurator().apply(new TalonFXConfiguration());
         m_ShooterFollower.getConfigurator().apply(new TalonFXConfiguration());
 
-       // m_Motor.setInverted(true);
+        m_ShooterFollower.setControl(new Follower(m_ShooterLeader.getDeviceID(), true));
          
 
         m_IsHolding = false;
@@ -48,13 +48,14 @@ public class Shooter extends SubsystemBase{
     @Override
     public void periodic()
     {
-        //m_Motor.set(m_Speed);
+        m_ShooterLeader.set(m_Speed);
+        Intake.m_storageMotor.set(m_StorageMotorSpeed);
+
 
 
        // SmartDashboard.putNumber("Intake Current", m_Motor.getOutputCurrent());
 
-        //double current = m_Motor.getOutputCurrent();
-        /*double current = m_Motor.get();
+        double current = m_ShooterLeader.get();
 
         if (m_Speed < 0)
         {
@@ -77,7 +78,7 @@ public class Shooter extends SubsystemBase{
                 m_IsHolding = true;
             }
         }
-        */
+        
 
     }
 
@@ -85,8 +86,11 @@ public class Shooter extends SubsystemBase{
     /**
      * @param speed double between -1 and 1 containing speed to set motor to
      */
-    public void setSpeed(double speed)
+    public void setSpeed(double speed, double storagespeed)
     {
+
+        m_StorageMotorSpeed = storagespeed;
+
         if (speed != 0)
         {
             m_Speed = speed;

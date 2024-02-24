@@ -28,8 +28,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Util.SysIdRoutine.Direction;
 import frc.robot.Vision.Limelight;
 import frc.robot.generated.TunerConstants;
-import frc.robot.subsystems.IntakeMotor;
-import frc.robot.subsystems.Wrist;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Arm;
 
 
@@ -48,9 +48,9 @@ public class RobotContainer {
   CommandXboxController drv = new CommandXboxController(0); // driver xbox controller
   CommandXboxController op = new CommandXboxController(1); // operator xbox controller
   CommandSwerveDrivetrain drivetrain = TunerConstants.DriveTrain; // drivetrain
-  //public IntakeMotor m_Intake = new IntakeMotor(Constants.intakeMotorID,Constants.ArmLED);
-  public Wrist m_Wrist = new Wrist(Constants.wristPID, 1, Constants.wristMotorID);
+  public Intake m_Intake = new Intake(Constants.intakeMotorID,Constants.TransferMotorID, Constants.StorageMotorID);
   public Arm m_Arm = new Arm(Constants.armPID, Constants.armLeaderID, Constants.armFollowerID);
+  public Shooter m_Shooter = new Shooter(Constants.ShooterFollowerID, Constants.ShooterLeaderID);
 
 
 
@@ -103,17 +103,13 @@ public class RobotContainer {
     Trigger speedPick = new Trigger(() -> lastSpeed != speedChooser.getSelected());
     speedPick.onTrue(runOnce(() -> newSpeed()));
 
-    op.x().onFalse(new InstantCommand(() -> m_Intake.setSpeed(.0)));
-    op.b().onFalse(new InstantCommand(() -> m_Intake.setSpeed(.0)));
+    op.x().onFalse(new InstantCommand(() -> m_Intake.setSpeed(.0, 0)));
+    op.b().onFalse(new InstantCommand(() -> m_Intake.setSpeed(.0, 0)));
 
-    op.x().onTrue(new InstantCommand(() -> m_Intake.setSpeed(.3)));
+    op.x().onTrue(new InstantCommand(() -> m_Intake.setSpeed(.3, .3)));
 
-    op.b().onTrue(new InstantCommand(() -> m_Intake.setSpeed(-.3)));
+    op.b().onTrue(new InstantCommand(() -> m_Intake.setSpeed(-.3, .3)));
     
-    op.y().onTrue(new InstantCommand(() -> m_Wrist.setWristAngle(45)));
-
-    op.a().onTrue(new InstantCommand(() -> m_Wrist.setWristAngle(0)));
-
     op.leftTrigger().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(45)));
 
     op.rightTrigger().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(0)));
@@ -145,12 +141,9 @@ public class RobotContainer {
 
   public RobotContainer() {
 
-    NamedCommands.registerCommand("run Intake", new InstantCommand(() -> m_Intake.setSpeed(0.3)));
-    NamedCommands.registerCommand("Intake Off", new InstantCommand(() -> m_Intake.setSpeed(0)));
-    NamedCommands.registerCommand("Wrist 45", new InstantCommand(() -> m_Wrist.setWristAngle(45)));
-    NamedCommands.registerCommand("Wrist 0", new InstantCommand(() -> m_Wrist.setWristAngle(0)));
-    NamedCommands.registerCommand("Wrist 110", new InstantCommand(() -> m_Wrist.setWristAngle(110)));
-
+    NamedCommands.registerCommand("run Intake", new InstantCommand(() -> m_Intake.setSpeed(0.3, 0.3)));
+    NamedCommands.registerCommand("Intake Off", new InstantCommand(() -> m_Intake.setSpeed(0,0)));
+  
     // Detect if controllers are missing / Stop multiple warnings
     DriverStation.silenceJoystickConnectionWarning(true);
 

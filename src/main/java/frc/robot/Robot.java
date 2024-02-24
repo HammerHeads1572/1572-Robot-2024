@@ -28,9 +28,9 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     CommandScheduler.getInstance().run(); 
     m_robotContainer.m_Intake.periodic();
-    m_robotContainer.m_Wrist.periodic();
     m_robotContainer.m_Arm.periodic();
     m_robotContainer.vision.periodic();
+    m_robotContainer.m_Shooter.periodic();
 
   }
 

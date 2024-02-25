@@ -15,22 +15,21 @@ package frc.robot;
  */
 public final class Constants {
 
-    public static final int armLeaderID = 14; //TODO
+    public static final int armLeaderID = 14; 
     public static final int armFollowerID = 15;
-
-    public static final int wristMotorID = 1600;
 
     public static final int intakeMotorID = 18; 
     public static final int TransferMotorID  = 100; //TODO 
     public static final int StorageMotorID = 2000; //TODO
 
-    public static final int ShooterFollowerID = 17658; //TODO
-    public static final int ShooterLeaderID = 17659; //TODO
+    public static final int ShooterFollowerID = 17;//TODO
+    public static final int ShooterLeaderID = 16; //TODO
 
 
 
-    public static final double [] wristPID = {0.06, 0, 8.};
-    public static final double [] armPID = {0.065, 0, 6.};
+    //public static final double [] armPID = {0.065, 0, 6.};
+    public static final double [] armPID = {0.64, 0, 0};
+
 
 
     public static final class Intake

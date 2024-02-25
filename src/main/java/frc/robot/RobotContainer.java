@@ -110,11 +110,11 @@ public class RobotContainer {
 
     op.b().onTrue(new InstantCommand(() -> m_Intake.setSpeed(-.3, .3)));
     
-    op.leftTrigger().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(45)));
+    op.leftTrigger().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(.25)));
 
     op.rightTrigger().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(0)));
 
-    op.leftBumper().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(Arm.arm_angle + 1)));
+    op.leftBumper().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(Arm.arm_angle + 0.1)));
 
     op.rightBumper().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(Arm.arm_angle - 1)));
 

@@ -31,6 +31,7 @@ import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Feeder;
 
 
 
@@ -48,9 +49,10 @@ public class RobotContainer {
   CommandXboxController drv = new CommandXboxController(0); // driver xbox controller
   CommandXboxController op = new CommandXboxController(1); // operator xbox controller
   CommandSwerveDrivetrain drivetrain = TunerConstants.DriveTrain; // drivetrain
-  public Intake m_Intake = new Intake(Constants.intakeMotorID,Constants.TransferMotorID, Constants.StorageMotorID);
+  public Intake m_Intake = new Intake(Constants.intakeMotorID);
   public Arm m_Arm = new Arm(Constants.armPID, Constants.armLeaderID, Constants.armFollowerID);
-  public Shooter m_Shooter = new Shooter(Constants.ShooterFollowerID, Constants.ShooterLeaderID);
+  public Shooter m_Shooter = new Shooter(Constants.shooterPID, Constants.RightShooterID, Constants.LeftShooterID);
+  public Feeder m_Feeder = new Feeder(Constants.FeederMotorID);
 
 
 
@@ -103,18 +105,25 @@ public class RobotContainer {
     Trigger speedPick = new Trigger(() -> lastSpeed != speedChooser.getSelected());
     speedPick.onTrue(runOnce(() -> newSpeed()));
 
-    op.x().onFalse(new InstantCommand(() -> m_Intake.setSpeed(.0, 0)));
-    op.b().onFalse(new InstantCommand(() -> m_Intake.setSpeed(.0, 0)));
+    op.x().onFalse(new InstantCommand(() -> m_Intake.setSpeed(.0)));
+    op.b().onFalse(new InstantCommand(() -> m_Intake.setSpeed(.0)));
 
-    op.x().onTrue(new InstantCommand(() -> m_Intake.setSpeed(.3, .3)));
+    op.x().onTrue(new InstantCommand(() -> m_Intake.setSpeed(.3)));
 
-    op.b().onTrue(new InstantCommand(() -> m_Intake.setSpeed(-.3, .3)));
+    op.b().onTrue(new InstantCommand(() -> m_Intake.setSpeed(-.3)));
+
+    op.a().onTrue(new InstantCommand(() -> m_Shooter.ToggleShooter()));
+
+    op.y().whileTrue(new InstantCommand(() -> m_Feeder.SetSpeed(.3)));
+    op.y().whileFalse(new InstantCommand(() -> m_Feeder.SetSpeed(0)));
     
-    op.leftTrigger().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(.25)));
+    op.leftTrigger().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(10)));
+    op.leftTrigger().onTrue(new InstantCommand(() -> m_Shooter.setSpeed(0.5)));
 
     op.rightTrigger().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(0)));
+    op.rightTrigger().onTrue(new InstantCommand(() -> m_Shooter.setSpeed(0)));
 
-    op.leftBumper().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(Arm.arm_angle + 0.1)));
+    op.leftBumper().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(Arm.arm_angle + 1)));
 
     op.rightBumper().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(Arm.arm_angle - 1)));
 
@@ -141,8 +150,8 @@ public class RobotContainer {
 
   public RobotContainer() {
 
-    NamedCommands.registerCommand("run Intake", new InstantCommand(() -> m_Intake.setSpeed(0.3, 0.3)));
-    NamedCommands.registerCommand("Intake Off", new InstantCommand(() -> m_Intake.setSpeed(0,0)));
+    NamedCommands.registerCommand("run Intake", new InstantCommand(() -> m_Intake.setSpeed(0.3)));
+    NamedCommands.registerCommand("Intake Off", new InstantCommand(() -> m_Intake.setSpeed(0)));
   
     // Detect if controllers are missing / Stop multiple warnings
     DriverStation.silenceJoystickConnectionWarning(true);

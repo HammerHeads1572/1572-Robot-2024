@@ -1,13 +1,12 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
+//import edu.wpi.first.wpilibj.motorcontrol.Talon;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 //import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.configs.*;
-import com.ctre.phoenix6.controls.Follower;
 
 import java.time.Instant;
 import frc.robot.Constants;
@@ -15,27 +14,19 @@ import frc.robot.Constants;
 public class Intake extends SubsystemBase{
     
     private TalonFX m_intakeMotor;
-    private TalonFX m_transferMotor;
-    public static TalonFX m_storageMotor;
     private double m_Speed;
     private boolean m_Peaking;
     private Instant m_TimeToHold;
     private boolean m_IsHolding;
-    private double m_StorageMotorSpeed;
 
 
-    public Intake(int IntakeMotorID, int TransferMotorID, int StorageMotorID)
+    public Intake(int IntakeMotorID)
     {
         // Initialize intake motor
         m_intakeMotor = new TalonFX(IntakeMotorID);
-        m_transferMotor = new TalonFX(TransferMotorID);
-        m_storageMotor = new TalonFX(StorageMotorID);
+        
 
         m_intakeMotor.getConfigurator().apply(new TalonFXConfiguration());
-        m_transferMotor.getConfigurator().apply(new TalonFXConfiguration());
-        m_storageMotor.getConfigurator().apply(new TalonFXConfiguration());
-
-        m_transferMotor.setControl(new Follower(m_intakeMotor.getDeviceID(), false));
 
         m_IsHolding = false;
 
@@ -50,7 +41,7 @@ public class Intake extends SubsystemBase{
     public void periodic()
     {
         m_intakeMotor.set(m_Speed);
-        m_storageMotor.set(m_StorageMotorSpeed);
+
 
 
        // SmartDashboard.putNumber("Intake Current", m_intakeMotor.getOutputCurrent());
@@ -85,10 +76,10 @@ public class Intake extends SubsystemBase{
     /**
      * @param speed double between -1 and 1 containing speed to set motor to
      */
-    public void setSpeed(double speed, double storagespeed)
+    public void setSpeed(double speed)
     {
 
-        m_StorageMotorSpeed = storagespeed;
+       
         if (speed != 0)
         {
             m_Speed = speed;

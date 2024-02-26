@@ -1,104 +1,92 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 //import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.configs.*;
-import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
 
-import java.time.Instant;
-import frc.robot.Constants;
+
 
 public class Shooter extends SubsystemBase{
     
-    //private WPI_TalonFX m_Motor;
-    private TalonFX m_ShooterLeader;
-    private TalonFX m_ShooterFollower;
+    private TalonFX m_RightShooter;
+    private TalonFX m_LeftShooter;
     private double m_Speed;
-    private boolean m_Peaking;
-    private Instant m_TimeToHold;
-    private boolean m_IsHolding;
-    private double m_StorageMotorSpeed;
 
 
-    public Shooter(int ShooterLeaderID, int ShooterFollowerID)
+    public Shooter(double []kPID, int RightShooterID, int LeftShooterID)
     {
         // Initialize intake motor
-        m_ShooterLeader = new TalonFX(ShooterLeaderID);
-        m_ShooterFollower = new TalonFX(ShooterFollowerID);
+        m_RightShooter = new TalonFX(RightShooterID, "Canivore");
+        m_LeftShooter = new TalonFX(LeftShooterID, "Canivore");
 
 
-        m_ShooterLeader.getConfigurator().apply(new TalonFXConfiguration());
-        m_ShooterFollower.getConfigurator().apply(new TalonFXConfiguration());
+        m_RightShooter.getConfigurator().apply(new TalonFXConfiguration());
+        //m_RightShooter.setInverted(true);
 
-        m_ShooterFollower.setControl(new Follower(m_ShooterLeader.getDeviceID(), true));
-         
+        m_LeftShooter.getConfigurator().apply(new TalonFXConfiguration());
 
-        m_IsHolding = false;
 
-        m_Speed = 0;
+        
+        var shooterMotorConfigs = new TalonFXConfiguration();
+
+
+        shooterMotorConfigs.MotionMagic.MotionMagicCruiseVelocity = 80; // 80 rps cruise velocity
+        shooterMotorConfigs.MotionMagic.MotionMagicAcceleration = 160; // 160 rps/s acceleration (0.5 seconds)
+        shooterMotorConfigs.MotionMagic.MotionMagicJerk = 1600; // 1600 rps/s^2 jerk (0.1 seconds)
+
+        shooterMotorConfigs.Slot0.kS = 0.24;
+        shooterMotorConfigs.Slot0.kV = 0.12;
+        shooterMotorConfigs.Slot0.kP = kPID[0];
+        shooterMotorConfigs.Slot0.kI = kPID[1];
+        shooterMotorConfigs.Slot0.kD = kPID[2];
+
+        m_RightShooter.getConfigurator().apply(shooterMotorConfigs, 0.050);
+        m_LeftShooter.getConfigurator().apply(shooterMotorConfigs, 0.050);
+
     }
 
-    /**
-     * Sets motor speed to most recent value
-     * Also checks for current spikes and readjusts to holding mode
-     */
     @Override
     public void periodic()
     {
-        m_ShooterLeader.set(m_Speed);
-        Intake.m_storageMotor.set(m_StorageMotorSpeed);
-
-
-
-       // SmartDashboard.putNumber("Intake Current", m_Motor.getOutputCurrent());
-
-        double current = m_ShooterLeader.get();
-
-        if (m_Speed < 0)
-        {
-            m_IsHolding = false;
-        }
-        else if (current > Constants.Intake.currentThreshold && !m_Peaking)
-        {
-            m_Peaking = true;
-            m_TimeToHold = Instant.now().plusMillis(Constants.Intake.msToHold);
-        }
-        else if(m_Peaking)
-        {
-            if (current <= Constants.Intake.currentThreshold)
-            {
-                m_Peaking = false;
-            }
-            else if (Instant.now().isAfter(m_TimeToHold))
-            {
-                m_Speed = Constants.Intake.holdSpeed;
-                m_IsHolding = true;
-            }
-        }
+        final MotionMagicVelocityVoltage m_request = new MotionMagicVelocityVoltage(0);
         
+        SmartDashboard.putNumber("Shooter Speed", m_Speed);
 
+        //m_RightShooter.setControl(m_request.withFeedForward(m_Speed));
+        m_RightShooter.setControl(m_request.withVelocity(-m_Speed));
+        //m_RightShooter.setControl(m_request.withAcceleration(m_Speed));
+        //m_LeftShooter.setControl(m_request.withFeedForward(m_Speed));
+        m_LeftShooter.setControl(m_request.withVelocity(m_Speed));
+        //m_LeftShooter.set(m_Speed);
+
+
+
+
+       
     }
 
 
     /**
      * @param speed double between -1 and 1 containing speed to set motor to
      */
-    public void setSpeed(double speed, double storagespeed)
+    public void setSpeed(double speed)
     {
 
-        m_StorageMotorSpeed = storagespeed;
-
-        if (speed != 0)
-        {
             m_Speed = speed;
-            m_IsHolding = false;
-        }
-        else if (!m_IsHolding)
-        {
+    }
+
+    public void ToggleShooter(){
+
+        if(m_Speed != 0){
             m_Speed = 0;
+        }
+        else{
+            m_Speed = 10;
         }
     }
 

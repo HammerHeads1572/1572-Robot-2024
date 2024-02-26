@@ -31,6 +31,7 @@ public class Robot extends TimedRobot {
     m_robotContainer.m_Arm.periodic();
     m_robotContainer.vision.periodic();
     m_robotContainer.m_Shooter.periodic();
+    m_robotContainer.m_Feeder.periodic();
 
   }
 

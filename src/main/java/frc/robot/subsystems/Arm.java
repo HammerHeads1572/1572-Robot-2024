@@ -168,7 +168,7 @@ public class Arm extends SubsystemBase {
         {
             m_Disabled = false;
         }
-        m_TargetAngle = angle * m_DegreesToRotation;
+        m_TargetAngle = angle / 360 * m_DegreesToRotation;
         arm_angle = angle;
         //TargetAngle = m_TargetAngle / m_DegreesToRotation;
         armRotationComplete = false;

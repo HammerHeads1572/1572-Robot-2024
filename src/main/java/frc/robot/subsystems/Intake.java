@@ -14,19 +14,23 @@ import frc.robot.Constants;
 public class Intake extends SubsystemBase{
     
     private TalonFX m_intakeMotor;
+    private TalonFX m_UpperIntakeMotor;
+    private double m_UpperSpeed;
     private double m_Speed;
     private boolean m_Peaking;
     private Instant m_TimeToHold;
     private boolean m_IsHolding;
 
 
-    public Intake(int IntakeMotorID)
+    public Intake(int LowerIntakeMotorID, int UpperIntakeMotorID)
     {
         // Initialize intake motor
-        m_intakeMotor = new TalonFX(IntakeMotorID);
+        m_intakeMotor = new TalonFX(LowerIntakeMotorID, "Canivore");
+        m_UpperIntakeMotor = new TalonFX(UpperIntakeMotorID, "Canivore");
         
 
         m_intakeMotor.getConfigurator().apply(new TalonFXConfiguration());
+        m_UpperIntakeMotor.getConfigurator().apply(new TalonFXConfiguration());
 
         m_IsHolding = false;
 
@@ -41,6 +45,7 @@ public class Intake extends SubsystemBase{
     public void periodic()
     {
         m_intakeMotor.set(m_Speed);
+        m_UpperIntakeMotor.set(m_UpperSpeed);
 
 
 
@@ -83,6 +88,21 @@ public class Intake extends SubsystemBase{
         if (speed != 0)
         {
             m_Speed = speed;
+            m_IsHolding = false;
+        }
+        else if (!m_IsHolding)
+        {
+            m_Speed = 0;
+        }
+    }
+
+    public void setUpperSpeed(double UpperSpeed)
+    {
+
+       
+        if (UpperSpeed != 0)
+        {
+            m_UpperSpeed = UpperSpeed;
             m_IsHolding = false;
         }
         else if (!m_IsHolding)

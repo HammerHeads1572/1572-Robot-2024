@@ -18,7 +18,9 @@ public final class Constants {
     public static final int armLeaderID = 14; 
     public static final int armFollowerID = 15;
 
-    public static final int intakeMotorID = 18; //TODO
+    public static final int LowerintakeMotorID = 20; 
+    public static final int UpperintakeMotorID = 21;
+
     public static final int FeederMotorID = 19; 
 
     public static final int RightShooterID = 17;
@@ -28,7 +30,7 @@ public final class Constants {
 
 
 
-    public static final double [] armPID = {0.64, 0, 0};
+    public static final double [] armPID = {0.8, 0, 0.2};
 
 
 

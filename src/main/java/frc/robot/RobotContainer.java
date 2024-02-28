@@ -49,7 +49,7 @@ public class RobotContainer {
   CommandXboxController drv = new CommandXboxController(0); // driver xbox controller
   CommandXboxController op = new CommandXboxController(1); // operator xbox controller
   CommandSwerveDrivetrain drivetrain = TunerConstants.DriveTrain; // drivetrain
-  public Intake m_Intake = new Intake(Constants.intakeMotorID);
+  public Intake m_Intake = new Intake(Constants.LowerintakeMotorID, Constants.UpperintakeMotorID);
   public Arm m_Arm = new Arm(Constants.armPID, Constants.armLeaderID, Constants.armFollowerID);
   public Shooter m_Shooter = new Shooter(Constants.shooterPID, Constants.RightShooterID, Constants.LeftShooterID);
   public Feeder m_Feeder = new Feeder(Constants.FeederMotorID);
@@ -105,28 +105,37 @@ public class RobotContainer {
     Trigger speedPick = new Trigger(() -> lastSpeed != speedChooser.getSelected());
     speedPick.onTrue(runOnce(() -> newSpeed()));
 
-    op.x().onFalse(new InstantCommand(() -> m_Intake.setSpeed(.0)));
-    op.b().onFalse(new InstantCommand(() -> m_Intake.setSpeed(.0)));
+    op.leftBumper().onFalse(new InstantCommand(() -> m_Intake.setSpeed(.0)));
+    op.leftBumper().onTrue(new InstantCommand(() -> m_Intake.setSpeed(-1)));
 
-    op.x().onTrue(new InstantCommand(() -> m_Intake.setSpeed(.3)));
+    op.rightBumper().whileTrue(new InstantCommand(() -> m_Feeder.SetSpeed(1)));
+    op.rightBumper().whileFalse(new InstantCommand(() -> m_Feeder.SetSpeed(0)));
 
-    op.b().onTrue(new InstantCommand(() -> m_Intake.setSpeed(-.3)));
+    op.leftTrigger().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(Arm.arm_angle + 10)));
+
+    op.rightTrigger().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(Arm.arm_angle - 10)));
+
 
     op.a().onTrue(new InstantCommand(() -> m_Shooter.ToggleShooter()));
 
-    op.y().whileTrue(new InstantCommand(() -> m_Feeder.SetSpeed(.3)));
-    op.y().whileFalse(new InstantCommand(() -> m_Feeder.SetSpeed(0)));
+    op.povUp().whileTrue(new InstantCommand(() -> m_Shooter.setSpeed(-50)));
+    op.povUp().whileTrue(new InstantCommand(() -> m_Feeder.SetSpeed(-1)));
+    op.povUp().whileFalse(new InstantCommand(() -> m_Shooter.setSpeed(0)));
+    op.povUp().whileFalse(new InstantCommand(() -> m_Feeder.SetSpeed(0)));
+
     
-    op.leftTrigger().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(10)));
-    op.leftTrigger().onTrue(new InstantCommand(() -> m_Shooter.setSpeed(0.5)));
+   op.y().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(75)));
+   //op.y().onTrue(new InstantCommand(() -> m_Shooter.setSpeed(100)));
 
-    op.rightTrigger().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(0)));
-    op.rightTrigger().onTrue(new InstantCommand(() -> m_Shooter.setSpeed(0)));
 
-    op.leftBumper().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(Arm.arm_angle + 1)));
+  op.x().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(-25)));
+  //op.x().onTrue(new InstantCommand(() -> m_Shooter.setSpeed(100)));
 
-    op.rightBumper().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(Arm.arm_angle - 1)));
+  op.b().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(0)));
+  op.b().onTrue(new InstantCommand(() -> m_Shooter.setSpeed(0)));
 
+
+    
 
     //Drivetrain
     drv.x().and(drv.pov(0)).whileTrue(drivetrain.runDriveQuasiTest(Direction.kForward));

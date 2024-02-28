@@ -86,7 +86,7 @@ public class Shooter extends SubsystemBase{
             m_Speed = 0;
         }
         else{
-            m_Speed = 10;
+            m_Speed = 100;
         }
     }
 

@@ -105,8 +105,11 @@ public class RobotContainer {
     Trigger speedPick = new Trigger(() -> lastSpeed != speedChooser.getSelected());
     speedPick.onTrue(runOnce(() -> newSpeed()));
 
-    op.leftBumper().onFalse(new InstantCommand(() -> m_Intake.setSpeed(.0)));
-    op.leftBumper().onTrue(new InstantCommand(() -> m_Intake.setSpeed(-1)));
+    op.leftBumper().whileTrue(new InstantCommand(() -> m_Intake.setSpeed(-.75)));
+    op.leftBumper().whileFalse(new InstantCommand(() -> m_Intake.setSpeed(.0)));
+   
+    op.leftBumper().whileTrue(new InstantCommand(() -> m_Intake.setUpperSpeed(-.75)));
+    op.leftBumper().whileFalse(new InstantCommand(() -> m_Intake.setUpperSpeed(.0)));
 
     op.rightBumper().whileTrue(new InstantCommand(() -> m_Feeder.SetSpeed(1)));
     op.rightBumper().whileFalse(new InstantCommand(() -> m_Feeder.SetSpeed(0)));
@@ -120,11 +123,13 @@ public class RobotContainer {
 
     op.povUp().whileTrue(new InstantCommand(() -> m_Shooter.setSpeed(-50)));
     op.povUp().whileTrue(new InstantCommand(() -> m_Feeder.SetSpeed(-1)));
+    op.povUp().whileTrue(new InstantCommand(() -> m_Intake.setUpperSpeed(.75)));
+    op.povUp().whileFalse(new InstantCommand(() -> m_Intake.setUpperSpeed(0)));
     op.povUp().whileFalse(new InstantCommand(() -> m_Shooter.setSpeed(0)));
     op.povUp().whileFalse(new InstantCommand(() -> m_Feeder.SetSpeed(0)));
 
     
-   op.y().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(75)));
+   op.y().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(90)));
    //op.y().onTrue(new InstantCommand(() -> m_Shooter.setSpeed(100)));
 
 

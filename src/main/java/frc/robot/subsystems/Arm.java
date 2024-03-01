@@ -19,15 +19,13 @@ public class Arm extends SubsystemBase {
     public double TargetAngle;
     public Boolean armRotationComplete = true;
 
-    double upperLimit = 145;
+    double upperLimit = 125;
     double lowerLimit = -45;
 
     boolean wentOverCurrentLimit = false;
     boolean isOverCurrentLimit = false;
 
-    //private double m_TicksToRotation = 0.000244140625;
     private double m_DegreesToRotation = 57.12;
-    //19.64
     
 
     public static double arm_angle;
@@ -66,9 +64,9 @@ public class Arm extends SubsystemBase {
         armMotorConfigs.Slot0.kD = kPID[2];
         
         // set Motion Magic settings
-        armMotorConfigs.MotionMagic.MotionMagicCruiseVelocity = 60; // 80 rps cruise velocity
-        armMotorConfigs.MotionMagic.MotionMagicAcceleration = 60; // 160 rps/s acceleration (0.5 seconds)
-        armMotorConfigs.MotionMagic.MotionMagicJerk = 800; // 1600 rps/s^2 jerk (0.1 seconds)
+        armMotorConfigs.MotionMagic.MotionMagicCruiseVelocity = 100; // 60 rps cruise velocity
+        armMotorConfigs.MotionMagic.MotionMagicAcceleration = 75; // 60 rps/s acceleration (0.5 seconds)
+        armMotorConfigs.MotionMagic.MotionMagicJerk = 800; // 800 rps/s^2 jerk (0.1 seconds)
 
         
 
@@ -78,7 +76,7 @@ public class Arm extends SubsystemBase {
       
         m_TargetAngle = 0;
         
-        // Attempt at global current limit
+        // global current limit
 
         CurrentLimitsConfigs StartingCurrentLimit = new CurrentLimitsConfigs().withSupplyCurrentLimit(40.0)
         .withSupplyCurrentLimitEnable(true)
@@ -91,7 +89,7 @@ public class Arm extends SubsystemBase {
     }
 
     /**
-     * Periodic function. Creates new request and uses PID to set to angle?
+     * Periodic function. 
      */
     @Override
     public void periodic()
@@ -114,7 +112,7 @@ public class Arm extends SubsystemBase {
         .withSupplyCurrentThreshold(40)
         .withSupplyTimeThreshold(0);
 
-        if(arm_angle >= 140){
+        if(arm_angle >= 120){
             if (wentOverCurrentLimit = true) {
                 m_ArmDriveMotor.getConfigurator().apply(RestingCurrentLimit);
                 m_FollowMotor.getConfigurator().apply(RestingCurrentLimit);
@@ -125,7 +123,7 @@ public class Arm extends SubsystemBase {
             }
         }
 
-        if (arm_angle < 140 && isOverCurrentLimit == true) {
+        if (arm_angle < 120 && isOverCurrentLimit == true) {
             m_ArmDriveMotor.getConfigurator().apply(NormalCurrentLimit);
             m_FollowMotor.getConfigurator().apply(NormalCurrentLimit);
             isOverCurrentLimit = false;
@@ -161,10 +159,6 @@ public class Arm extends SubsystemBase {
     {
         m_TargetAngle = angle / 360 * m_DegreesToRotation;
         arm_angle = angle;
-
-
-        
-        //TargetAngle = m_TargetAngle / m_DegreesToRotation;
         armRotationComplete = false;
     }
     

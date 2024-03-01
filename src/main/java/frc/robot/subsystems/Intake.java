@@ -1,14 +1,15 @@
 package frc.robot.subsystems;
 
-//import edu.wpi.first.wpilibj.motorcontrol.Talon;
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-//import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import  java.time.Instant;
+
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.configs.*;
 
-import java.time.Instant;
+
 import frc.robot.Constants;
 
 public class Intake extends SubsystemBase{
@@ -17,22 +18,31 @@ public class Intake extends SubsystemBase{
     private TalonFX m_UpperIntakeMotor;
     private double m_UpperSpeed;
     private double m_Speed;
-    private boolean m_Peaking;
-    private Instant m_TimeToHold;
+   // private boolean m_Peaking;
+    //private Instant m_TimeToHold;
     private boolean m_IsHolding;
+    private boolean m_IsRunning = false;
+    private Instant m_CurrentBreakTarget;
+
 
 
     public Intake(int LowerIntakeMotorID, int UpperIntakeMotorID)
     {
         // Initialize intake motor
         m_intakeMotor = new TalonFX(LowerIntakeMotorID, "Canivore");
+        m_intakeMotor.setNeutralMode(NeutralModeValue.Coast);
+
         m_UpperIntakeMotor = new TalonFX(UpperIntakeMotorID, "Canivore");
+        m_UpperIntakeMotor.setNeutralMode(NeutralModeValue.Coast);
         
 
         m_intakeMotor.getConfigurator().apply(new TalonFXConfiguration());
         m_UpperIntakeMotor.getConfigurator().apply(new TalonFXConfiguration());
 
         m_IsHolding = false;
+        m_IsRunning = false;
+        m_CurrentBreakTarget = Instant.now();
+
 
         m_Speed = 0;
     }
@@ -44,36 +54,31 @@ public class Intake extends SubsystemBase{
     @Override
     public void periodic()
     {
-        m_intakeMotor.set(m_Speed);
-        m_UpperIntakeMotor.set(m_UpperSpeed);
 
+        //double upperCurrent = m_UpperIntakeMotor.getStatorCurrent().getValueAsDouble();
+        double lowerCurrent = m_intakeMotor.getStatorCurrent().getValueAsDouble();
 
+        if (lowerCurrent > Constants.Intake.pickedCurrentThreshold) {
+           
+            m_IsRunning = true;
+        
+        } else if (m_IsRunning && lowerCurrent < Constants.Intake.releasedCurrentThreshold) {
+                
+            m_IsRunning = false;
+            m_IsHolding = true;
+            m_CurrentBreakTarget = Instant.now().plusMillis(10);
 
-       // SmartDashboard.putNumber("Intake Current", m_intakeMotor.getOutputCurrent());
+        } else if (m_IsHolding && Instant.now().isAfter(m_CurrentBreakTarget)) {
+        
+            m_UpperIntakeMotor.set(0);
 
-        double current = m_intakeMotor.get();
-
-        if (m_Speed < 0)
-        {
-            m_IsHolding = false;
+        } else {
+            
+            m_intakeMotor.set(m_Speed);
+            m_UpperIntakeMotor.set(m_UpperSpeed);
+            
         }
-        else if (current > Constants.Intake.currentThreshold && !m_Peaking)
-        {
-            m_Peaking = true;
-            m_TimeToHold = Instant.now().plusMillis(Constants.Intake.msToHold);
-        }
-        else if(m_Peaking)
-        {
-            if (current <= Constants.Intake.currentThreshold)
-            {
-                m_Peaking = false;
-            }
-            else if (Instant.now().isAfter(m_TimeToHold))
-            {
-                m_Speed = Constants.Intake.holdSpeed;
-                m_IsHolding = true;
-            }
-        }
+
 
     }
 
@@ -84,30 +89,25 @@ public class Intake extends SubsystemBase{
     public void setSpeed(double speed)
     {
 
-       
-        if (speed != 0)
-        {
-            m_Speed = speed;
+        m_Speed = speed;
+        
+        if (speed == 0) {
+            
             m_IsHolding = false;
+        
         }
-        else if (!m_IsHolding)
-        {
-            m_Speed = 0;
-        }
+
     }
 
     public void setUpperSpeed(double UpperSpeed)
     {
 
-       
-        if (UpperSpeed != 0)
-        {
-            m_UpperSpeed = UpperSpeed;
+        m_UpperSpeed = UpperSpeed;
+        
+        if (UpperSpeed == 0) {
+
             m_IsHolding = false;
-        }
-        else if (!m_IsHolding)
-        {
-            m_Speed = 0;
+
         }
     }
 

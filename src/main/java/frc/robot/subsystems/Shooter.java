@@ -1,10 +1,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-//import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
@@ -26,7 +24,6 @@ public class Shooter extends SubsystemBase{
 
 
         m_RightShooter.getConfigurator().apply(new TalonFXConfiguration());
-        //m_RightShooter.setInverted(true);
 
         m_LeftShooter.getConfigurator().apply(new TalonFXConfiguration());
 
@@ -57,12 +54,8 @@ public class Shooter extends SubsystemBase{
         
         SmartDashboard.putNumber("Shooter Speed", m_Speed);
 
-        //m_RightShooter.setControl(m_request.withFeedForward(m_Speed));
         m_RightShooter.setControl(m_request.withVelocity(-m_Speed));
-        //m_RightShooter.setControl(m_request.withAcceleration(m_Speed));
-        //m_LeftShooter.setControl(m_request.withFeedForward(m_Speed));
         m_LeftShooter.setControl(m_request.withVelocity(m_Speed));
-        //m_LeftShooter.set(m_Speed);
 
 
 

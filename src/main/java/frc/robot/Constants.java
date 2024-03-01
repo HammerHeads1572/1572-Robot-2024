@@ -36,9 +36,10 @@ public final class Constants {
 
     public static final class Intake
     {
-        public static final double currentThreshold = 30.0;
+        public static final double pickedCurrentThreshold = 40.0;
+        public static final double releasedCurrentThreshold = 30.0;
         public static final int msToHold = 2500;
-        public static final double holdSpeed = 0.2;
+        public static final double holdSpeed = 0;
     }
 
 }

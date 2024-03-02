@@ -1,22 +1,10 @@
 {
   "version": 1.0,
-  "startingPose": {
-    "position": {
-      "x": 0.44210602706919755,
-      "y": 7.168474908378388
-    },
-    "rotation": 0
-  },
+  "startingPose": null,
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Top Start - Border"
-          }
-        },
         {
           "type": "named",
           "data": {
@@ -24,15 +12,33 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "Run Upper Intake"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "Upper Border - Top Note"
+            "pathName": "Bottom Straight Shot"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "Intake Off"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Upper Intake off"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Go back "
           }
         }
       ]

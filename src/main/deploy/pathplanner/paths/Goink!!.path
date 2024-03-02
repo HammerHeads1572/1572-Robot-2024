@@ -1,0 +1,76 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.39,
+        "y": 0.35
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 8.314313587482273,
+        "y": 0.9839407156452961
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.154632647293463,
+        "y": 7.501100072622681
+      },
+      "prevControl": {
+        "x": 8.18400401193959,
+        "y": 7.398300296361232
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.75,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Toggle Fly Wheels"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "Feeder Off"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -63.434948822921996,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": null,
+  "previewStartingState": {
+    "rotation": -67.94306577783183,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

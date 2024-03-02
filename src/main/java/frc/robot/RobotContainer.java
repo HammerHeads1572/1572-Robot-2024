@@ -146,9 +146,13 @@ public class RobotContainer {
     op.x().onTrue(new InstantCommand(() -> m_Shooter.setLeftSpeed(Constants.shooterLeftSpeed)));
     op.x().onTrue(new InstantCommand(() -> m_Shooter.setRightSpeed(Constants.shooterRightSpeed)));
   
-    op.b().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(0)));
+    op.b().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(125)));
     op.b().onTrue(new InstantCommand(() -> m_Shooter.setLeftSpeed(0)));
     op.b().onTrue(new InstantCommand(() -> m_Shooter.setRightSpeed(0)));
+
+    op.button(7).onTrue(new InstantCommand(() -> m_Arm.setArmAngle(0)));
+    op.button(7).onTrue(new InstantCommand(() -> m_Shooter.setLeftSpeed(0)));
+    op.button(7).onTrue(new InstantCommand(() -> m_Shooter.setRightSpeed(0)));
 
     
 
@@ -175,8 +179,15 @@ public class RobotContainer {
   public RobotContainer() {
 
     NamedCommands.registerCommand("Run Intake", new InstantCommand(() -> m_Intake.setSpeed(-0.75)));
+    NamedCommands.registerCommand("Run Upper Intake", new InstantCommand(() -> m_Intake.setUpperSpeed(-0.75)));
     NamedCommands.registerCommand("Intake Off", new InstantCommand(() -> m_Intake.setSpeed(0)));
-    
+    NamedCommands.registerCommand("Upper Intake Off", new InstantCommand(() -> m_Intake.setUpperSpeed(0)));
+    NamedCommands.registerCommand("Arm 45", new InstantCommand(() -> m_Arm.setArmAngle(45)));
+    NamedCommands.registerCommand("Toggle fly wheels", new InstantCommand(() -> m_Shooter.ToggleShooter()));
+    NamedCommands.registerCommand("Feeder", new InstantCommand(() -> m_Feeder.SetSpeed(1)));
+    NamedCommands.registerCommand("Feeder Off", new InstantCommand(() -> m_Feeder.SetSpeed(0)));
+    NamedCommands.registerCommand("Arm 120", new InstantCommand(() -> m_Arm.setArmAngle(120)));
+
     
   
     // Detect if controllers are missing / Stop multiple warnings

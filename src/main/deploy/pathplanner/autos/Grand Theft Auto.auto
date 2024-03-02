@@ -1,0 +1,115 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.4281021799968474,
+      "y": 1.8210246080599504
+    },
+    "rotation": -25.201123645475075
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "run Intake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Run Upper Intake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Arm 120"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Run Flywheels"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Run Feeder"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "First Note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Goink!!"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Top Note To Shooting Pose"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Arm 45"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Run Upper Intake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Run Feeder"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Toggle Fly Wheels"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Arm 120"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Upper Intake off"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Feeder Off"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Toggle Fly Wheels"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

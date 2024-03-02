@@ -1,7 +1,7 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.configs.*;
@@ -13,7 +13,8 @@ public class Shooter extends SubsystemBase{
     
     private TalonFX m_RightShooter;
     private TalonFX m_LeftShooter;
-    private double m_Speed;
+    private double m_LeftSpeed;
+    private double m_RightSpeed;
 
 
     public Shooter(double []kPID, int RightShooterID, int LeftShooterID)
@@ -52,10 +53,10 @@ public class Shooter extends SubsystemBase{
     {
         final MotionMagicVelocityVoltage m_request = new MotionMagicVelocityVoltage(0);
         
-        SmartDashboard.putNumber("Shooter Speed", m_Speed);
+       // SmartDashboard.putNumber("Shooter Speed", m_Speed);
 
-        m_RightShooter.setControl(m_request.withVelocity(-m_Speed));
-        m_LeftShooter.setControl(m_request.withVelocity(m_Speed));
+        m_RightShooter.setControl(m_request.withVelocity(-m_RightSpeed));
+        m_LeftShooter.setControl(m_request.withVelocity(m_LeftSpeed));
 
 
 
@@ -67,19 +68,27 @@ public class Shooter extends SubsystemBase{
     /**
      * @param speed double between -1 and 1 containing speed to set motor to
      */
-    public void setSpeed(double speed)
+    public void setLeftSpeed(double Leftspeed)
     {
 
-            m_Speed = speed;
+            m_LeftSpeed = Leftspeed;
+    }
+
+    public void setRightSpeed(double Rightspeed)
+    {
+
+            m_RightSpeed = Rightspeed;
     }
 
     public void ToggleShooter(){
 
-        if(m_Speed != 0){
-            m_Speed = 0;
+        if(m_LeftSpeed != 0){
+            m_LeftSpeed = 0;
+            m_RightSpeed = 0;
         }
         else{
-            m_Speed = 100;
+            m_LeftSpeed = Constants.shooterLeftSpeed;
+            m_RightSpeed = Constants.shooterRightSpeed;
         }
     }
 

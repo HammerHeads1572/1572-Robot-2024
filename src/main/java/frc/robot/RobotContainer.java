@@ -88,10 +88,10 @@ public class RobotContainer {
     // reset the field-centric heading on start button press
     drv.start().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldRelative()));
 
-    // Turtle Mode while held
-    drv.leftBumper().onTrue(runOnce(() -> MaxSpeed = TunerConstants.kSpeedAt12VoltsMps * TurtleSpeed)
+    // Turtle Mode while not held
+    drv.leftBumper().onFalse(runOnce(() -> MaxSpeed = TunerConstants.kSpeedAt12VoltsMps * TurtleSpeed)
         .andThen(() -> AngularRate = TurtleAngularRate));
-    drv.leftBumper().onFalse(runOnce(() -> MaxSpeed = TunerConstants.kSpeedAt12VoltsMps * speedChooser.getSelected())
+    drv.leftBumper().onTrue(runOnce(() -> MaxSpeed = TunerConstants.kSpeedAt12VoltsMps * speedChooser.getSelected())
         .andThen(() -> AngularRate = MaxAngularRate));
 
     if (Utils.isSimulation()) {
@@ -108,8 +108,9 @@ public class RobotContainer {
     op.leftBumper().whileTrue(new InstantCommand(() -> m_Intake.setSpeed(-.75)));
     op.leftBumper().whileFalse(new InstantCommand(() -> m_Intake.setSpeed(.0)));
    
-    op.leftBumper().whileTrue(new InstantCommand(() -> m_Intake.setUpperSpeed(-.75)));
+    op.leftBumper().whileTrue(new InstantCommand(() -> m_Intake.setUpperSpeed(-.60)));
     op.leftBumper().whileFalse(new InstantCommand(() -> m_Intake.setUpperSpeed(.0)));
+
 
     op.rightBumper().whileTrue(new InstantCommand(() -> m_Feeder.SetSpeed(1)));
     op.rightBumper().whileFalse(new InstantCommand(() -> m_Feeder.SetSpeed(0)));
@@ -121,24 +122,33 @@ public class RobotContainer {
 
     op.a().onTrue(new InstantCommand(() -> m_Shooter.ToggleShooter()));
 
-    op.povUp().whileTrue(new InstantCommand(() -> m_Shooter.setSpeed(-50)));
+    op.povUp().whileTrue(new InstantCommand(() -> m_Shooter.setLeftSpeed(-50)));
+    op.povUp().whileTrue(new InstantCommand(() -> m_Shooter.setRightSpeed(-50)));
     op.povUp().whileTrue(new InstantCommand(() -> m_Feeder.SetSpeed(-1)));
-    op.povUp().whileTrue(new InstantCommand(() -> m_Intake.setUpperSpeed(.75)));
+    op.povUp().whileTrue(new InstantCommand(() -> m_Intake.setUpperSpeed(1)));
+    op.povUp().whileTrue(new InstantCommand(() -> m_Intake.setSpeed(1)));
+
+
     op.povUp().whileFalse(new InstantCommand(() -> m_Intake.setUpperSpeed(0)));
-    op.povUp().whileFalse(new InstantCommand(() -> m_Shooter.setSpeed(0)));
+    op.povUp().whileFalse(new InstantCommand(() -> m_Shooter.setLeftSpeed(0)));
+    op.povUp().whileFalse(new InstantCommand(() -> m_Shooter.setRightSpeed(0)));
     op.povUp().whileFalse(new InstantCommand(() -> m_Feeder.SetSpeed(0)));
+    op.povUp().whileTrue(new InstantCommand(() -> m_Intake.setSpeed(0)));
+
 
     
-   op.y().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(90)));
-   //op.y().onTrue(new InstantCommand(() -> m_Shooter.setSpeed(100)));
+    op.y().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(70)));
+    op.y().onTrue(new InstantCommand(() -> m_Shooter.setLeftSpeed(60)));
+    op.y().onTrue(new InstantCommand(() -> m_Shooter.setRightSpeed(65)));
 
 
-  op.x().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(-25)));
-  //op.x().onTrue(new InstantCommand(() -> m_Shooter.setSpeed(100)));
-
-  op.b().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(0)));
-  op.b().onTrue(new InstantCommand(() -> m_Shooter.setSpeed(0)));
-
+    op.x().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(45)));
+    op.x().onTrue(new InstantCommand(() -> m_Shooter.setLeftSpeed(Constants.shooterLeftSpeed)));
+    op.x().onTrue(new InstantCommand(() -> m_Shooter.setRightSpeed(Constants.shooterRightSpeed)));
+  
+    op.b().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(0)));
+    op.b().onTrue(new InstantCommand(() -> m_Shooter.setLeftSpeed(0)));
+    op.b().onTrue(new InstantCommand(() -> m_Shooter.setRightSpeed(0)));
 
     
 
@@ -164,8 +174,10 @@ public class RobotContainer {
 
   public RobotContainer() {
 
-    NamedCommands.registerCommand("run Intake", new InstantCommand(() -> m_Intake.setSpeed(0.3)));
+    NamedCommands.registerCommand("Run Intake", new InstantCommand(() -> m_Intake.setSpeed(-0.75)));
     NamedCommands.registerCommand("Intake Off", new InstantCommand(() -> m_Intake.setSpeed(0)));
+    
+    
   
     // Detect if controllers are missing / Stop multiple warnings
     DriverStation.silenceJoystickConnectionWarning(true);

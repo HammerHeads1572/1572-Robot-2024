@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 2,
-      "y": 2
+      "x": 0.44210602706919755,
+      "y": 7.168474908378388
     },
     "rotation": 0
   },
@@ -12,9 +12,9 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "Wrist 45"
+            "pathName": "Top Start - Border"
           }
         },
         {
@@ -24,15 +24,15 @@
           }
         },
         {
-          "type": "wait",
+          "type": "path",
           "data": {
-            "waitTime": 1.0
+            "pathName": "Upper Border - Top Note"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Intake off"
+            "name": "Intake Off"
           }
         }
       ]

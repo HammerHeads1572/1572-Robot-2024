@@ -32,7 +32,8 @@ public final class Constants {
 
     public static final double [] armPID = {0.8, 0, 0.2};
 
-
+    public static final double shooterLeftSpeed = 100;
+    public static final double shooterRightSpeed = 95;
 
     public static final class Intake
     {

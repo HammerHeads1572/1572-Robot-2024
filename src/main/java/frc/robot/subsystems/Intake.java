@@ -55,8 +55,11 @@ public class Intake extends SubsystemBase{
     public void periodic()
     {
 
+        m_intakeMotor.set(m_Speed);
+        m_UpperIntakeMotor.set(m_UpperSpeed);
+
         //double upperCurrent = m_UpperIntakeMotor.getStatorCurrent().getValueAsDouble();
-        double lowerCurrent = m_intakeMotor.getStatorCurrent().getValueAsDouble();
+        /* double lowerCurrent = m_intakeMotor.getStatorCurrent().getValueAsDouble();
 
         if (lowerCurrent > Constants.Intake.pickedCurrentThreshold) {
            
@@ -71,6 +74,8 @@ public class Intake extends SubsystemBase{
         } else if (m_IsHolding && Instant.now().isAfter(m_CurrentBreakTarget)) {
         
             m_UpperIntakeMotor.set(0);
+            m_intakeMotor.set(0);
+
 
         } else {
             
@@ -79,7 +84,7 @@ public class Intake extends SubsystemBase{
             
         }
 
-
+     */
     }
 
 

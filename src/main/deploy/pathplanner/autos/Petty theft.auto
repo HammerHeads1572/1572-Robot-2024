@@ -14,7 +14,7 @@
         {
           "type": "named",
           "data": {
-            "name": "run Intake"
+            "name": "Run Intake"
           }
         },
         {
@@ -32,7 +32,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Toggle Flywheels"
+            "name": "Toggle Fly Wheels"
           }
         },
         {
@@ -44,7 +44,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "First Note"
+            "pathName": "Start of petty theft"
           }
         },
         {

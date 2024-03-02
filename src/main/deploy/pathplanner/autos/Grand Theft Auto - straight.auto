@@ -14,7 +14,7 @@
         {
           "type": "named",
           "data": {
-            "name": "run Intake"
+            "name": "Run Intake"
           }
         },
         {
@@ -32,7 +32,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Run Flywheels"
+            "name": "Toggle Fly Wheels"
           }
         },
         {
@@ -44,13 +44,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "First Note"
+            "pathName": " First Note - straight"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Goink!!"
+            "pathName": "Goink!! - Straight"
           }
         },
         {

@@ -3,14 +3,14 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import  java.time.Instant;
+//mport  java.time.Instant;
 
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.configs.*;
 
 
-import frc.robot.Constants;
+//import frc.robot.Constants;
 
 public class Intake extends SubsystemBase{
     
@@ -20,9 +20,9 @@ public class Intake extends SubsystemBase{
     private double m_Speed;
    // private boolean m_Peaking;
     //private Instant m_TimeToHold;
-    private boolean m_IsHolding;
-    private boolean m_IsRunning = false;
-    private Instant m_CurrentBreakTarget;
+    //private boolean m_IsHolding;
+    //private boolean m_IsRunning = false;
+   // private Instant m_CurrentBreakTarget;
 
 
 
@@ -39,9 +39,9 @@ public class Intake extends SubsystemBase{
         m_intakeMotor.getConfigurator().apply(new TalonFXConfiguration());
         m_UpperIntakeMotor.getConfigurator().apply(new TalonFXConfiguration());
 
-        m_IsHolding = false;
-        m_IsRunning = false;
-        m_CurrentBreakTarget = Instant.now();
+       // m_IsHolding = false;
+        //m_IsRunning = false;
+        //m_CurrentBreakTarget = Instant.now();
 
 
         m_Speed = 0;
@@ -98,7 +98,7 @@ public class Intake extends SubsystemBase{
         
         if (speed == 0) {
             
-            m_IsHolding = false;
+           // m_IsHolding = false;
         
         }
 
@@ -111,7 +111,7 @@ public class Intake extends SubsystemBase{
         
         if (UpperSpeed == 0) {
 
-            m_IsHolding = false;
+            //m_IsHolding = false;
 
         }
     }

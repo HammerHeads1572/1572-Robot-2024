@@ -183,7 +183,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("Intake Off", new InstantCommand(() -> m_Intake.setSpeed(0)));
     NamedCommands.registerCommand("Upper Intake Off", new InstantCommand(() -> m_Intake.setUpperSpeed(0)));
     NamedCommands.registerCommand("Arm 45", new InstantCommand(() -> m_Arm.setArmAngle(45)));
-    NamedCommands.registerCommand("Toggle fly wheels", new InstantCommand(() -> m_Shooter.ToggleShooter()));
+    NamedCommands.registerCommand("Toggle Fly Wheels", new InstantCommand(() -> m_Shooter.ToggleShooter()));
     NamedCommands.registerCommand("Feeder", new InstantCommand(() -> m_Feeder.SetSpeed(1)));
     NamedCommands.registerCommand("Feeder Off", new InstantCommand(() -> m_Feeder.SetSpeed(0)));
     NamedCommands.registerCommand("Arm 120", new InstantCommand(() -> m_Arm.setArmAngle(120)));

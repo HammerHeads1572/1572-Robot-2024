@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.27,
-        "y": 0.72
+        "x": 6.8898024021450555,
+        "y": 4.391019014596169
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.918917226278101,
-        "y": 0.72
+        "x": 6.067404192053465,
+        "y": 7.871525725162363
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 4.628207324393182,
-        "y": 0.9545693509991673
+        "x": 3.2550701721121755,
+        "y": 4.798391568614123
       },
       "prevControl": {
-        "x": 3.6282073243931823,
-        "y": 0.9545693509991673
+        "x": 4.892549606208337,
+        "y": 7.063813197393838
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 141.51980175165696,
+    "rotation": 167.47119229084848,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "GTA",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -153.43494882292214,
     "velocity": 0
   },
   "useDefaultConstraints": false

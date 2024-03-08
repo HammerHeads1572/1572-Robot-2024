@@ -87,8 +87,8 @@ public class Shooter extends SubsystemBase{
             m_RightSpeed = 0;
         }
         else{
-            m_LeftSpeed = Constants.shooterLeftSpeed;
-            m_RightSpeed = Constants.shooterRightSpeed;
+            m_LeftSpeed = 75;
+            m_RightSpeed = 70;
         }
     }
 

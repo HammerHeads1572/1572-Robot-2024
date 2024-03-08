@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Util.SysIdRoutine.Direction;
@@ -41,8 +42,8 @@ public class RobotContainer {
   private SendableChooser<Double> speedChooser = new SendableChooser<>();
   private double MaxSpeed = TunerConstants.kSpeedAt12VoltsMps; // Initial max is true top speed
   private final double TurtleSpeed = 0.1; // Reduction in speed from Max Speed, 0.1 = 10%
-  private final double MaxAngularRate = Math.PI * 1.5; // .75 rotation per second max angular velocity.  Adjust for max turning rate speed.
-  private final double TurtleAngularRate = Math.PI * 0.5; // .75 rotation per second max angular velocity.  Adjust for max turning rate speed.
+  private final double MaxAngularRate = Math.PI * 2; // .75 rotation per second max angular velocity.  Adjust for max turning rate speed.
+  private final double TurtleAngularRate = Math.PI * 1; // .75 rotation per second max angular velocity.  Adjust for max turning rate speed.
   private double AngularRate = MaxAngularRate; // This will be updated when turtle and reset to MaxAngularRate
 
   /* Setting up bindings for necessary control of the swerve drive platform */
@@ -70,7 +71,7 @@ public class RobotContainer {
 
   Telemetry logger = new Telemetry(MaxSpeed);
 
-  Pose2d odomStart = new Pose2d(0, 0, new Rotation2d(0, 0));
+  Pose2d odomStart = new Pose2d(0, 0, new Rotation2d(0,0));
 
   private Supplier<SwerveRequest> controlStyle;
 
@@ -86,7 +87,7 @@ public class RobotContainer {
         .applyRequest(() -> point.withModuleDirection(new Rotation2d(-drv.getLeftY(), -drv.getLeftX()))));
 
     // reset the field-centric heading on start button press
-    drv.start().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldRelative()));
+    drv.button(8).onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldRelative()));
 
     // Turtle Mode while not held
     drv.leftBumper().onFalse(runOnce(() -> MaxSpeed = TunerConstants.kSpeedAt12VoltsMps * TurtleSpeed)
@@ -108,16 +109,20 @@ public class RobotContainer {
     op.leftBumper().whileTrue(new InstantCommand(() -> m_Intake.setSpeed(-.75)));
     op.leftBumper().whileFalse(new InstantCommand(() -> m_Intake.setSpeed(.0)));
    
-    op.leftBumper().whileTrue(new InstantCommand(() -> m_Intake.setUpperSpeed(-.60)));
+    op.leftBumper().whileTrue(new InstantCommand(() -> m_Intake.setUpperSpeed(-.40)));
     op.leftBumper().whileFalse(new InstantCommand(() -> m_Intake.setUpperSpeed(.0)));
+
+    op.leftBumper().whileTrue(new InstantCommand(() -> m_Feeder.SetSpeed(.5)));
+    op.leftBumper().whileFalse(new InstantCommand(() -> m_Feeder.SetSpeed(.0)));
+
 
 
     op.rightBumper().whileTrue(new InstantCommand(() -> m_Feeder.SetSpeed(1)));
     op.rightBumper().whileFalse(new InstantCommand(() -> m_Feeder.SetSpeed(0)));
 
-    op.leftTrigger().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(Arm.arm_angle + 10)));
+    op.leftTrigger().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(Arm.arm_angle + 5)));
 
-    op.rightTrigger().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(Arm.arm_angle - 10)));
+    op.rightTrigger().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(Arm.arm_angle - 5)));
 
 
     op.a().onTrue(new InstantCommand(() -> m_Shooter.ToggleShooter()));
@@ -133,26 +138,26 @@ public class RobotContainer {
     op.povUp().whileFalse(new InstantCommand(() -> m_Shooter.setLeftSpeed(0)));
     op.povUp().whileFalse(new InstantCommand(() -> m_Shooter.setRightSpeed(0)));
     op.povUp().whileFalse(new InstantCommand(() -> m_Feeder.SetSpeed(0)));
-    op.povUp().whileTrue(new InstantCommand(() -> m_Intake.setSpeed(0)));
+    op.povUp().whileFalse(new InstantCommand(() -> m_Intake.setSpeed(0)));
 
 
     
-    op.y().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(70)));
-    op.y().onTrue(new InstantCommand(() -> m_Shooter.setLeftSpeed(60)));
-    op.y().onTrue(new InstantCommand(() -> m_Shooter.setRightSpeed(65)));
+    op.y().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(45)));
+    op.y().onTrue(new InstantCommand(() -> m_Shooter.setLeftSpeed(75)));
+    op.y().onTrue(new InstantCommand(() -> m_Shooter.setRightSpeed(70)));
 
 
-    op.x().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(45)));
-    op.x().onTrue(new InstantCommand(() -> m_Shooter.setLeftSpeed(Constants.shooterLeftSpeed)));
-    op.x().onTrue(new InstantCommand(() -> m_Shooter.setRightSpeed(Constants.shooterRightSpeed)));
+    op.x().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(110)));
+    op.x().onTrue(new InstantCommand(() -> m_Shooter.setLeftSpeed(100)));
+    op.x().onTrue(new InstantCommand(() -> m_Shooter.setRightSpeed(95))); 
   
     op.b().onTrue(new InstantCommand(() -> m_Arm.setArmAngle(125)));
     op.b().onTrue(new InstantCommand(() -> m_Shooter.setLeftSpeed(0)));
     op.b().onTrue(new InstantCommand(() -> m_Shooter.setRightSpeed(0)));
 
-    op.button(7).onTrue(new InstantCommand(() -> m_Arm.setArmAngle(0)));
-    op.button(7).onTrue(new InstantCommand(() -> m_Shooter.setLeftSpeed(0)));
-    op.button(7).onTrue(new InstantCommand(() -> m_Shooter.setRightSpeed(0)));
+    op.button(8).onTrue(new InstantCommand(() -> m_Arm.setArmAngle(0)));
+    op.button(8).onTrue(new InstantCommand(() -> m_Shooter.setLeftSpeed(0)));
+    op.button(8).onTrue(new InstantCommand(() -> m_Shooter.setRightSpeed(0)));
 
     
 
@@ -187,6 +192,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("Feeder", new InstantCommand(() -> m_Feeder.SetSpeed(1)));
     NamedCommands.registerCommand("Feeder Off", new InstantCommand(() -> m_Feeder.SetSpeed(0)));
     NamedCommands.registerCommand("Arm 120", new InstantCommand(() -> m_Arm.setArmAngle(120)));
+    NamedCommands.registerCommand("Arm 37", new InstantCommand(() -> m_Arm.setArmAngle(37)));
 
     
   
@@ -226,6 +232,16 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     /* First put the drivetrain into auto run mode, then run the auto */
     return autoChooser.getSelected();
+  }
+
+  public Command elimsAuto(){
+    return new InstantCommand(()-> m_Arm.setArmAngle(42)).andThen
+    (new InstantCommand(() -> {m_Shooter.setLeftSpeed(95); m_Shooter.setRightSpeed(100);})).andThen(new WaitCommand(3)).andThen
+    (new InstantCommand(()-> m_Feeder.SetSpeed(1))).andThen(new InstantCommand(()-> m_Intake.setUpperSpeed(-1)));
+  }
+
+  public Command SetForward(Rotation2d Angle){
+    return drivetrain.runOnce(() -> drivetrain.setOperatorPerspectiveForward(Angle));
   }
 
   private void newControlStyle() {

@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.32530240373539865,
-      "y": 1.9091387019983346
+      "x": 1.5269059109546796,
+      "y": 1.2900322943503038
     },
-    "rotation": 0
+    "rotation": -2.3859440303888744
   },
   "command": {
     "type": "sequential",
@@ -14,37 +14,25 @@
         {
           "type": "named",
           "data": {
-            "name": "Run Intake"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Run Upper Intake"
+            "name": "Arm 120"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Bottom Straight Shot"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Intake Off"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Upper Intake off"
+            "pathName": "Start of petty theft"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Go back "
+            "pathName": "Second Note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Flee The Crime Scene"
           }
         }
       ]

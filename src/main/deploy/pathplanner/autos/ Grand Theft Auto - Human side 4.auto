@@ -44,13 +44,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": " First Note - straight"
+            "pathName": " First Note - Human player side"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Goink!! - Straight"
+            "pathName": "Goink!! - 4"
           }
         },
         {
@@ -110,6 +110,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "GTA",
   "choreoAuto": false
 }

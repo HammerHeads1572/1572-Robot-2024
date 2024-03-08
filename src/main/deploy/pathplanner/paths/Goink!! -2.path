@@ -1,0 +1,76 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.888428800113415,
+        "y": 0.4993131989841808
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.80031470617503,
+        "y": 1.1895402681681944
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.888428800113415,
+        "y": 0.9251979863530396
+      },
+      "prevControl": {
+        "x": 7.917800164759542,
+        "y": 0.8223982100915906
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.7,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Toggle Fly Wheels"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "Feeder Off"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 15.0,
+    "maxAcceleration": 10.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -167.66271202622093,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "GTA Number of notes",
+  "previewStartingState": {
+    "rotation": 172.87498365109826,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

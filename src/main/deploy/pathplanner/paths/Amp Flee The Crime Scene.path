@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.565343789006004,
-        "y": 7.151927291332221
+        "x": 8.07,
+        "y": 5.56
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.382119345705598,
-        "y": 6.065513419542045
+        "x": 5.234527135720938,
+        "y": 6.499026331385996
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.2550701721121755,
-        "y": 4.798391568614123
+        "x": 4.835464115372676,
+        "y": 6.784071345920469
       },
       "prevControl": {
-        "x": 4.753009769064715,
-        "y": 5.664846825674906
+        "x": 5.744350504574026,
+        "y": 6.710774056468748
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,20 +32,20 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 15.0,
-    "maxAcceleration": 10.0,
+    "maxVelocity": 7.0,
+    "maxAcceleration": 3.33,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 167.47119229084848,
+    "rotation": 152.6501242199301,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "GTA",
+  "folder": null,
   "previewStartingState": {
-    "rotation": -153.43494882292214,
+    "rotation": 172.99873244250466,
     "velocity": 0
   },
   "useDefaultConstraints": false

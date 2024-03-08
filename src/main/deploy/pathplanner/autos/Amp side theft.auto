@@ -1,0 +1,43 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.5431941974995065,
+      "y": 7.411170377896312
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "Arm 120"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp side theft"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp side pt2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp Flee The Crime Scene"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

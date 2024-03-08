@@ -33,7 +33,7 @@ public class TunerConstants {
 
     // The stator current at which the wheels start to slip;
     // This needs to be tuned to your individual robot
-    private static final double kSlipCurrentA = 300.0;
+    private static final double kSlipCurrentA = 300.0; //TODO for no slipies
 
     // Theoretical free speed (m/s) at 12v applied output;
     // This needs to be tuned to your individual robot
@@ -73,7 +73,7 @@ public class TunerConstants {
             .withDriveMotorGearRatio(kDriveGearRatio)
             .withSteerMotorGearRatio(kSteerGearRatio)
             .withWheelRadius(kWheelRadiusInches)
-            .withSlipCurrent(kSlipCurrentA)
+            .withSlipCurrent(kSlipCurrentA) //Stator Current
             .withSteerMotorGains(steerGains)
             .withDriveMotorGains(driveGains)
             .withSteerMotorClosedLoopOutput(steerClosedLoopOutput)
@@ -86,6 +86,7 @@ public class TunerConstants {
             .withFeedbackSource(SteerFeedbackType.RemoteCANcoder)
             .withCouplingGearRatio(kCoupleRatio)
             .withSteerMotorInverted(kSteerMotorReversed);
+            
 
 
     // Front Left
@@ -136,6 +137,8 @@ public class TunerConstants {
     private static final double kBackRightYPosInches = -11;
 
 
+
+
     private static final SwerveModuleConstants FrontLeft = ConstantCreator.createModuleConstants(
             kFrontLeftSteerMotorId, kFrontLeftDriveMotorId, kFrontLeftEncoderId, kFrontLeftEncoderOffset, Units.inchesToMeters(kFrontLeftXPosInches), Units.inchesToMeters(kFrontLeftYPosInches), kInvertFrontLeft);
     private static final SwerveModuleConstants FrontRight = ConstantCreator.createModuleConstants(
@@ -148,3 +151,4 @@ public class TunerConstants {
     public static final CommandSwerveDrivetrain DriveTrain = new CommandSwerveDrivetrain(DrivetrainConstants, FrontLeft,
             FrontRight, BackLeft, BackRight);
 }
+

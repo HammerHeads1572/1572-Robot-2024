@@ -2,10 +2,17 @@
   "robotWidth": 0.56,
   "robotLength": 0.66,
   "holonomicMode": true,
-  "pathFolders": [],
-  "autoFolders": [],
-  "defaultMaxVel": 3.0,
-  "defaultMaxAccel": 3.0,
+  "pathFolders": [
+    "GTA",
+    "GTA Number of notes",
+    "GTA Amp side notes",
+    "Petty theft"
+  ],
+  "autoFolders": [
+    "GTA"
+  ],
+  "defaultMaxVel": 7.0,
+  "defaultMaxAccel": 3.33,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
   "maxModuleSpeed": 6.0

@@ -59,7 +59,7 @@ public class RobotContainer {
 
 
   // Field-centric driving in Open Loop, can change to closed loop after characterization 
-  SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric().withDriveRequestType(DriveRequestType.OpenLoopVoltage).withDeadband(MaxSpeed * 0.1).withRotationalDeadband(AngularRate * 0.1);
+  SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric().withDriveRequestType(DriveRequestType.OpenLoopVoltage).withDeadband(MaxSpeed * 0.01).withRotationalDeadband(AngularRate * 0.1);
   // Field-centric driving in Closed Loop.  Comment above and uncomment below.
   //SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric().withDriveRequestType(DriveRequestType.Velocity).withDeadband(MaxSpeed * 0.1).withRotationalDeadband(AngularRate * 0.1);
 

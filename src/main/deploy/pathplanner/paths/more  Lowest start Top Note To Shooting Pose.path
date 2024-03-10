@@ -3,55 +3,49 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.5269059109546796,
-        "y": 1.2900322943503038
+        "x": 7.619872141152733,
+        "y": 1.25740983876334
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.526905910954677,
-        "y": 1.2900322943503038
+        "x": 6.102308542645256,
+        "y": 0.9105381591044874
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.77,
-        "y": 0.61
+        "x": 3.1828052388499146,
+        "y": 2.3847427976546096
       },
       "prevControl": {
-        "x": 6.360440509452447,
-        "y": 0.5523999419427418
+        "x": 5.336300250065289,
+        "y": 1.8499822915138793
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 180.0,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 7.0,
-    "maxAcceleration": 3.33,
+    "maxVelocity": 15.0,
+    "maxAcceleration": 10.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -153.74112420194697,
+    "rotation": 167.47119229084848,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "GTA",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -153.43494882292214,
     "velocity": 0
   },
   "useDefaultConstraints": false

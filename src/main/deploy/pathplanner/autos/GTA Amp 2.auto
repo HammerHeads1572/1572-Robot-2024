@@ -1,0 +1,37 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.5735854011958479,
+      "y": 7.489697984762696
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "First Note - Amp side"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Goink!! Amp 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "High amp side flee "
+          }
+        }
+      ]
+    }
+  },
+  "folder": "GTA Amp side",
+  "choreoAuto": false
+}

@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.4281021799968474,
-      "y": 1.8210246080599504
+      "x": 1.5351647604703664,
+      "y": 1.2429568521108878
     },
-    "rotation": -25.201123645475075
+    "rotation": -2.121096396661409
   },
   "command": {
     "type": "sequential",
@@ -110,6 +110,6 @@
       ]
     }
   },
-  "folder": "GTA",
+  "folder": "GTA Human side",
   "choreoAuto": false
 }

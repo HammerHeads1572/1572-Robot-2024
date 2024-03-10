@@ -67,7 +67,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-      m_robotContainer.SetForward(Rotation2d.fromDegrees(180));//Red is 180 blue is 0
+      m_robotContainer.SetForward(Rotation2d.fromDegrees(180));//TODO Red is 180 blue is 0
   }
 
   @Override

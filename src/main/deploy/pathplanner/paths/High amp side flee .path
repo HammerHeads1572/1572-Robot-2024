@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.7174788635291562,
-        "y": 4.280561703980552
+        "x": 6.131214515950159,
+        "y": 6.460485033646124
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.380311332051236,
-        "y": 4.280561703980552
+        "x": 4.671462864052489,
+        "y": 6.677279833432908
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 0.8232519322181507,
-        "y": 4.573750861787438
+        "x": 4.310138197741185,
+        "y": 6.330408153774054
       },
       "prevControl": {
-        "x": 0.8159222032729786,
-        "y": 4.515113030226061
+        "x": 5.148411423583408,
+        "y": 6.301502180469149
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,21 +32,21 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
-    "maxAngularVelocity": 740.0,
-    "maxAngularAcceleration": 920.0
+    "maxVelocity": 7.0,
+    "maxAcceleration": 3.33,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 122.47119229084848,
-    "rotateFast": true
+    "rotation": 0,
+    "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "GTA Amp side notes",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

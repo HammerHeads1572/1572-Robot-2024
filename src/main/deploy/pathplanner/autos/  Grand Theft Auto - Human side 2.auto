@@ -56,7 +56,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Lower start Top Note To Shooting Pose"
+            "pathName": " Lowest start Top Note To Shooting Pose"
           }
         },
         {
@@ -110,6 +110,6 @@
       ]
     }
   },
-  "folder": "GTA",
+  "folder": "GTA Human side",
   "choreoAuto": false
 }
